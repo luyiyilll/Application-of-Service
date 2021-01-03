@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express()
 
-const { querySql } = require('../sql/index')
+const { querySql } = require('../../sql/index')
 
 /*获取学院*/
 router.get('/all', function (req, res) {

@@ -12,11 +12,9 @@ const app = express();
 app.use(cors())//解决跨域问题
 app.use(bodyParse.urlencoded({ extended: true }))//解析post参数
 app.use(bodyParse.json())//解析json形式的body，要在路由之前使用
-app.use(express.static(path.join(__dirname + '/temp')))//静态资源,要在路由之前使用
+app.use(express.static(path.join(__dirname + '/public/images')))//静态资源,要在路由之前使用
 
 app.use('/', router)//抽离路由
-
-//app.use(express.static("temp"));
 
 app.listen(3000, function () {
   console.log('server 已经启动')

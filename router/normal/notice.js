@@ -1,9 +1,9 @@
 const express = require('express')
 const router = express()
 
-const { querySql } = require('../sql/index')
-const { getList } = require('../sql/noticesql')
-const { getFromatTime } = require('../utils/constant')
+const { querySql } = require('../../sql/index')
+const { getList } = require('../../sql/noticesql')
+const { getFromatTime } = require('../../utils/constant')
 
 router.post('/list', function (req, res) {
   getList(req.body.type).then(response => {

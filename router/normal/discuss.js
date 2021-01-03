@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const { querySql } = require('../sql/index');
-const { getFromatTime } = require('../utils/constant');
-const { findUserViews } = require('../sql/disscuss_views')
-const { getAllDiscussList } = require("../sql/discusssql")
+const { querySql } = require('../../sql/index');
+const { getFromatTime } = require('../../utils/constant');
+const { findUserViews } = require('../../sql/disscuss_views')
+const { getAllDiscussList } = require("../../sql/discusssql")
 
 /*发表讨论*/
 router.post('/discuss', function (req, res) {

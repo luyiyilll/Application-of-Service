@@ -1,10 +1,12 @@
 const express = require('express')
 const boom = require('boom');
-const userRouter = require('./user')
-const academicRouter = require('./academic')
-const discussRouter = require('./discuss')
-const noticeRouter = require('./notice')
-const likeRouter = require('./like')
+const userRouter = require('./normal/user')
+const academicRouter = require('./normal/academic')
+const discussRouter = require('./normal/discuss')
+const noticeRouter = require('./normal/notice')
+const likeRouter = require('./normal/like')
+
+const adminRouter = require('./admin/user')
 const { COOE_ERROR } = require('../utils/constant')
 
 const router = express.Router()
@@ -24,6 +26,11 @@ router.use('/discuss', discussRouter)
 router.use('/notice', noticeRouter)
 /*点赞Router*/
 router.use('/like', likeRouter)
+
+
+/*admin接口*/
+/*用户router*/
+router.use('/admin', adminRouter)
 
 /*集中异常处理404*/
 router.use((req, res, next) => {

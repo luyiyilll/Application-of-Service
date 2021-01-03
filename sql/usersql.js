@@ -34,14 +34,14 @@ function findUserByOid (openid) {
 function updatePetition (openid, img) {
   querySql("select petition_pic from tb_user where openid='" + openid + "'").then(async res => {
     let result;
-    if (res == "") {
-      result = [];
+    console.log(!!res[0].petition_pic)
+    if (!!res[0].petition_pic) {
+      result = res[0].petition_pic.split(';');
     } else {
-      results = res.petition_pic;
+      result = [];
     }
     result.push(img);
     let str = result.join(";")
-    console.log("-----", str)
     await querySql("update tb_user set petition_pic='" + str + "' where openid ='" + openid + "'").then(response => {
       return {
         code: 1,
@@ -51,7 +51,28 @@ function updatePetition (openid, img) {
   })
 }
 
+/*管理系统*/
+
+function findUserByName (name) {
+  const conn = connect();
+  return new Promise((resolve, reject) => {
+    try {
+      conn.query("select * from tb_admin where name='" + name + "'", function (err, results) {
+        if (err) {
+          reject(e)
+        } else {
+          resolve(results)
+        }
+      })
+    } catch (err) {
+      reject(err)
+    } finally {
+      conn.end()
+    }
+  })
+}
 module.exports = {
   findUserByOid,
-  updatePetition
+  updatePetition,
+  findUserByName
 }
