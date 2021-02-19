@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 const { querySql } = require('../../sql/index');
 const { getFromatTime } = require('../../utils/constant');
-const { findUserViews } = require('../../sql/disscuss_views')
-const { getAllDiscussList } = require("../../sql/discusssql")
+const { findUserViews } = require('../../sql/normal/disscuss_views')
+const { getAllDiscussList } = require("../../sql/normal/discusssql")
 
 /*发表讨论*/
 router.post('/discuss', function (req, res) {
@@ -26,12 +26,15 @@ router.post('/list/id', function (req, res) {
     let result = []
     r.forEach(item => {
       let o = {
+        avatar: item.avatar,
+        nick_name: item.nick_name,
         id: item.id,
         title: item.title,
         content: item.content,
         postdate: getFromatTime(item.postdate),
         views: item.views,
-        islike: item.islike
+        islike: item.islike,
+        num: item.num
       }
       result.push(o)
     })

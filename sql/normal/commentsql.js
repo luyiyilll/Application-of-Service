@@ -1,5 +1,6 @@
-const config = require('./sqlConfig')
+const config = require('../sqlConfig')
 const mysql = require('mysql');
+const { getFromatTime } = require("../../utils/constant")
 
 function connect () {
   return mysql.createConnection({
@@ -11,11 +12,13 @@ function connect () {
   })
 }
 
-function findUserViews (did) {
+function addComment (o) {
   const conn = connect();
   return new Promise((resolve, reject) => {
     try {
-      conn.query("select DISTINCT a.id,a.postdate,a.title,a.content,b.views,c.islike from tb_discuss a,tb_views b,tb_likes c where a.id = b.otherid and a.id=c.otherid and a.publisher='" + did + "' and c.`user`='" + did + "' and b.type=0 and c.type=0", function (err, results) {
+      let date = new Date();
+      let postdate = getFromatTime(date)
+      conn.query("insert into tb_comment set otherid='" + o.id + "',postdate='" + postdate + "',content='" + o.content + "',publisher='" + o.openid + "'", function (err, results) {
         if (err) {
           reject(err)
         } else {
@@ -31,7 +34,7 @@ function findUserViews (did) {
 }
 
 
-module.exports = {
 
-  findUserViews
+module.exports = {
+  addComment
 }

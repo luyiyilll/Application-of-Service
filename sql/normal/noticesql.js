@@ -1,4 +1,4 @@
-const config = require('./sqlConfig')
+const config = require('../sqlConfig')
 const mysql = require('mysql');
 
 function connect () {
@@ -36,13 +36,14 @@ function getContentById (id) {
   const conn = connect();
   return new Promise((resolve, reject) => {
     try {
-      conn.query("select * from tb_meetting_notice where id='" + id + "'", function (err, results) {
-        if (err) {
-          reject(err)
-        } else {
-          resolve(results)
-        }
-      })
+      conn.query("SELECT tb_meetting_notice.*,(SELECT count(tb_views.otherid) FROM tb_views WHERE tb_meetting_notice.id=tb_views.otherid) views,(SELECT count(tb_collect.otherid) FROM tb_collect WHERE tb_meetting_notice.id=tb_collect.otherid) collects  FROM tb_meetting_notice,tb_collect WHERE tb_meetting_notice.id='" + id + "'",
+        function (err, results) {
+          if (err) {
+            reject(err)
+          } else {
+            resolve(results)
+          }
+        })
     } catch (e) {
       reject(e)
     } finally {

@@ -1,4 +1,4 @@
-const config = require('./sqlConfig')
+const config = require('../sqlConfig')
 const mysql = require('mysql');
 
 function connect () {
@@ -19,15 +19,23 @@ function likeAction (id, openid) {
         if (err) {
           reject(err)
         } else {
-          if (results[0].islike == 0) {
-            conn.query("update tb_likes set islike=1 where otherid='" + id + "' and `user`='" + openid + "' and type=0", function (e, res) {
-              resolve(res)
-            })
+          if (results.length != 0) {
+            if (results[0].islike == 0) {
+              conn.query("update tb_likes set islike=1 where otherid='" + id + "' and `user`='" + openid + "' and type=0", function (e, res) {
+                resolve(res)
+              })
+            } else {
+              conn.query("update tb_likes set islike=0 where otherid='" + id + "' and `user`='" + openid + "' and type=0", function (e, res) {
+                resolve(res)
+              })
+            }
           } else {
-            conn.query("update tb_likes set islike=0 where otherid='" + id + "' and `user`='" + openid + "' and type=0", function (e, res) {
+            console.log('----')
+            conn.query("insert into tb_likes(otherid,user,islike,type) values('" + id + "','" + openid + "',1,0)", function (e, res) {
               resolve(res)
             })
           }
+
         }
       })
     } catch (e) {

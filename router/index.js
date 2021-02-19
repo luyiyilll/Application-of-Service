@@ -5,8 +5,11 @@ const academicRouter = require('./normal/academic')
 const discussRouter = require('./normal/discuss')
 const noticeRouter = require('./normal/notice')
 const likeRouter = require('./normal/like')
+const commentRouter = require('./normal/comment')
+const viewRouter = require('./normal/view')
+const collectRouter = require('./normal/collect')
 
-const adminRouter = require('./admin/user')
+const adminUserRouter = require('./admin/user')
 const { COOE_ERROR } = require('../utils/constant')
 
 const router = express.Router()
@@ -26,11 +29,16 @@ router.use('/discuss', discussRouter)
 router.use('/notice', noticeRouter)
 /*点赞Router*/
 router.use('/like', likeRouter)
-
+/*评论Router*/
+router.use('/comment', commentRouter)
+/*浏览Router*/
+router.use('/view', viewRouter)
+/*收藏Router*/
+router.use('/collect', collectRouter)
 
 /*admin接口*/
 /*用户router*/
-router.use('/admin', adminRouter)
+router.use('/admin', adminUserRouter)
 
 /*集中异常处理404*/
 router.use((req, res, next) => {
@@ -39,7 +47,6 @@ router.use((req, res, next) => {
 })
 /*自定义路由异常处理中间件*/
 router.use((err, req, res, next) => {
-  console.log(err)
   const msg = (err && err.message) || '系统错误';
   const statusCode = (err.output && err.output.statusCode) || 500;
   const errorMsg = (err.output && err.output.payload && err.output.payload.error) || err.message;
