@@ -1,3 +1,5 @@
+
+
 function getIdentity (id) {
   let identity;
   switch (id) {
@@ -139,6 +141,21 @@ function getApplyStatus (identity, is_apply, is_check) {
   }
 }
 
+function getPicArray (imgList) {
+  if (imgList != 0) {
+    imgList = imgList.split(';');
+    let r = []
+    imgList.forEach(item => {
+      r.push({ url: 'http://localhost:3000/' + item });
+    })
+    imgList = r;
+  } else {
+    imgList = imgList.split('')
+  }
+  return imgList
+}
+
+
 module.exports = {
   CODE_ERROR: -1,
   getIdentity,
@@ -148,5 +165,7 @@ module.exports = {
   getApply,
   getApplyStatus,
   getApplyId,
-  getIdentityId
+  getIdentityId,
+  getPicArray,
+
 }

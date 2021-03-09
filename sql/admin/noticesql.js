@@ -30,3 +30,6 @@ function deleteById (id) {
     }
   })
 }
+module.exports = {
+  deleteById
+}

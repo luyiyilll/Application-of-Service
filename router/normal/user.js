@@ -14,10 +14,10 @@ const upload = multer({ dest: "temp/" })
 
 const {
   findUserByOid,
-  updatePetition,
-  updateFamily,
-  updateResume,
-  updateStatement,
+  uploadPetition,
+  uploadFamily,
+  uploadResume,
+  uploadStatement,
   uploadExcellent,
   uploadCertifate,
   uploadNormal,
@@ -179,7 +179,7 @@ router.post('/petitionpic', upload.single("file"), function (req, res) {
   let newPath = picPath + newName; //给图片设置存放目录  提前给当前文件夹下建立一个   images文件夹  ！！！！
   let fileData = fs.readFileSync(tmp);//将上传到服务器上的临时资源 读取到 一个变量里面
   fs.writeFileSync(path.join(__dirname, newPath), fileData);//重新书写图片文件  写入到指定的文件夹下
-  updatePetition(req.headers['authori-zation'], newName)
+  uploadPetition(req.headers['authori-zation'], newName)
   res.json({
     code: 1,
     msg: '上传成功'
@@ -195,7 +195,7 @@ router.post('/familypic', upload.single("file"), function (req, res) {
   let newPath = picPath + newName; //给图片设置存放目录  提前给当前文件夹下建立一个   images文件夹  ！！！！
   let fileData = fs.readFileSync(tmp);//将上传到服务器上的临时资源 读取到 一个变量里面
   fs.writeFileSync(path.join(__dirname, newPath), fileData);//重新书写图片文件  写入到指定的文件夹下
-  updateFamily(req.headers['authori-zation'], newName)
+  uploadFamily(req.headers['authori-zation'], newName)
   res.json({
     code: 1,
     msg: '上传成功'
@@ -211,7 +211,7 @@ router.post('/resumepic', upload.single("file"), function (req, res) {
   let newPath = picPath + newName; //给图片设置存放目录  提前给当前文件夹下建立一个   images文件夹  ！！！！
   let fileData = fs.readFileSync(tmp);//将上传到服务器上的临时资源 读取到 一个变量里面
   fs.writeFileSync(path.join(__dirname, newPath), fileData);//重新书写图片文件  写入到指定的文件夹下
-  updateResume(req.headers['authori-zation'], newName)
+  uploadResume(req.headers['authori-zation'], newName)
   res.json({
     code: 1,
     msg: '上传成功'
@@ -227,7 +227,7 @@ router.post('/statementpic', upload.single("file"), function (req, res) {
   let newPath = picPath + newName; //给图片设置存放目录  提前给当前文件夹下建立一个   images文件夹  ！！！！
   let fileData = fs.readFileSync(tmp);//将上传到服务器上的临时资源 读取到 一个变量里面
   fs.writeFileSync(path.join(__dirname, newPath), fileData);//重新书写图片文件  写入到指定的文件夹下
-  updateStatement(req.headers['authori-zation'], newName)
+  uploadStatement(req.headers['authori-zation'], newName)
   res.json({
     code: 1,
     msg: '上传成功'

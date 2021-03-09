@@ -10,6 +10,7 @@ const viewRouter = require('./normal/view')
 const collectRouter = require('./normal/collect')
 
 const adminUserRouter = require('./admin/user')
+const adminNotice = require('./admin/notice')
 const { COOE_ERROR } = require('../utils/constant')
 
 const router = express.Router()
@@ -38,7 +39,9 @@ router.use('/collect', collectRouter)
 
 /*admin接口*/
 /*用户router*/
-router.use('/admin', adminUserRouter)
+router.use('/admin/user', adminUserRouter)
+/*会议、公示...接口*/
+router.use('/admin/notice', adminNotice)
 
 /*集中异常处理404*/
 router.use((req, res, next) => {

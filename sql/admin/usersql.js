@@ -1,7 +1,7 @@
 const config = require('../sqlConfig')
 const mysql = require('mysql');
 const { getApplyId, getIdentityId } = require('../../utils/constant')
-
+const { querySql } = require('../index')
 function connect () {
   return mysql.createConnection({
     host: config.host,
@@ -61,6 +61,7 @@ function getUncheck (o) {
       } else {
         sql = "select * from tb_user where is_check=0 and " + sWehere
       }
+      console.log(sql)
       conn.query(sql, function (err, results) {
         if (err) {
           reject(err)
@@ -87,7 +88,11 @@ function handleUnCheck (o) {
       if (type == 0) {
         sql = "update tb_user set is_apply=0,is_check=2 where id=" + id;
       } else if (type = 1) {
-        sql = "update tb_user set is_apply=0,is_check=0,identity='" + (identity + 1) + "' where id='" + id + "'";
+        if (identity == 4) {
+          sql = "update tb_user set is_apply=0,is_check=1,identity='" + (identity + 1) + "' where id='" + id + "'";
+        } else {
+          sql = "update tb_user set is_apply=0,is_check=0,identity='" + (identity + 1) + "' where id='" + id + "'";
+        }
       } else {
         sql = "delete from tb_user where id='" + id + "'"
       }
@@ -172,8 +177,6 @@ function getCheckedList (o) {
           sql = "select * from tb_user where " + sWehere
         }
       }
-
-      console.log(sql)
       conn.query(sql, function (err, results) {
         if (err) {
           reject(err)
@@ -208,6 +211,159 @@ function deleteUserById (id) {
     }
   })
 }
+
+/*根据id查询用户信息*/
+function viewUserById (id) {
+  const conn = connect();
+  return new Promise((resolve, reject) => {
+    try {
+      conn.query("select * from tb_user where id='" + id + "'", function (err, results) {
+        if (err) {
+          reject(err)
+        } else {
+          resolve(results)
+        }
+      })
+    } catch (e) {
+      reject(e)
+    } finally {
+      conn.end()
+    }
+  })
+}
+
+/*入党申请 上传图片*/
+function uploadAppPic (id) {
+  const conn = connect();
+  return new Promise((resolve, reject) => {
+    try {
+      conn.query("select * from tb_user where id='" + id + "'", function (err, results) {
+        if (err) {
+          reject(err)
+        } else {
+          resolve(results)
+        }
+      })
+    } catch (e) {
+      reject(e)
+    } finally {
+      conn.end()
+    }
+  })
+}
+
+/*根据图片名 和类型（0-9）删除图片*/
+
+
+function deletePicByName (o) {
+  querySql("select * from tb_user where id='" + o.id + "'").then(async results => {
+    let petition = results[0].petition_pic.split(';');
+    let family = results[0].family_pic.split(';');
+    let resume = results[0].resume_pic.split(';');
+    let statement = results[0].statement_pic.split(';');
+    let excellent = results[0].excellent_pic.split(';');
+    let certifate = results[0].certifate_pic.split(';');
+    let normal = results[0].normal_pic.split(';');
+    let applybook = results[0].applybook_pic.split(';');
+    let tonormal = results[0].tonormal_pic.split(';');
+    let sql, pic, newPic = [];
+    switch (o.type) {
+      case 0:
+        petition.forEach(item => {
+          if (item != o.pic) {
+            newPic.push(item)
+          }
+        })
+        pic = newPic.join(';')
+        sql = "update tb_user set petition_pic='" + pic + "' where id='" + o.id + "'"
+        break;
+      case 1:
+        family.forEach(item => {
+          if (item != o.pic) {
+            newPic.push(item)
+          }
+        })
+        pic = newPic.join(';')
+        sql = "update tb_user set family_pic='" + pic + "' where id='" + o.id + "'"
+        break;
+      case 2:
+        resume.forEach(item => {
+          if (item != o.pic) {
+            newPic.push(item)
+          }
+        })
+        pic = newPic.join(';')
+        sql = "update tb_user set resume_pic='" + pic + "' where id='" + o.id + "'"
+        break;
+      case 3:
+        statement.forEach(item => {
+          if (item != o.pic) {
+            newPic.push(item)
+          }
+        })
+        pic = newPic.join(';')
+        sql = "update tb_user set statement_pic='" + pic + "' where id='" + o.id + "'"
+        break;
+      case 4:
+        excellent.forEach(item => {
+          if (item != o.pic) {
+            newPic.push(item)
+          }
+        })
+        pic = newPic.join(';')
+        sql = "update tb_user set excellent_pic='" + pic + "' where id='" + o.id + "'"
+        break;
+      case 5:
+        certifate.forEach(item => {
+          if (item != o.pic) {
+            newPic.push(item)
+          }
+        })
+        pic = newPic.join(';')
+        sql = "update tb_user set certifate_pic='" + pic + "' where id='" + o.id + "'"
+        break;
+      case 6:
+        normal.forEach(item => {
+          if (item != o.pic) {
+            newPic.push(item)
+          }
+        })
+        pic = newPic.join(';')
+        sql = "update tb_user set normal_pic='" + pic + "' where id='" + o.id + "'"
+        break;
+      case 7:
+        applybook.forEach(item => {
+          if (item != o.pic) {
+            newPic.push(item)
+          }
+        })
+        pic = newPic.join(';')
+        sql = "update tb_user set applybook_pic='" + pic + "' where id='" + o.id + "'"
+        break;
+      case 8:
+        tonormal.forEach(item => {
+          if (item != o.pic) {
+            newPic.push(item)
+          }
+        })
+        pic = newPic.join(';')
+        sql = "update tb_user set tonormal_pic='" + pic + "' where id='" + o.id + "'"
+        break;
+    }
+    console.log(pic)
+    console.log(sql)
+    await querySql(sql).then(r => {
+      return {
+        code: 20000,
+        msg: '删除成功'
+      }
+    })
+
+  })
+
+
+}
+
 // function getUserList () {
 //   const conn = connect();
 //   return new Promise((resolve, reject) => {
@@ -234,5 +390,8 @@ module.exports = {
   getUncheck,
   handleUnCheck,
   getCheckedList,
-  deleteUserById
+  deleteUserById,
+  viewUserById,
+  uploadAppPic,
+  deletePicByName
 }
