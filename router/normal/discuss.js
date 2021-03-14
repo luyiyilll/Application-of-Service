@@ -12,7 +12,7 @@ router.post('/discuss', function (req, res) {
     querySql("select id from tb_discuss order by postdate desc limit 1").then(reqid => {
       querySql("insert into tb_likes(otherid,user,islike,type) values('" + reqid[0].id + "','" + req.body.publisher + "',0,0)").then(r => {
         res.json({
-          code: 1,
+          code: 200,
           msg: '发表成功'
         })
       })
@@ -40,7 +40,7 @@ router.post('/list/id', function (req, res) {
     })
     res.json({
       data: result,
-      code: 1,
+      code: 200,
       msg: '获取用户讨论列表成功'
     })
   })
@@ -50,7 +50,7 @@ router.post('/list/id', function (req, res) {
 router.get('/all', function (req, res) {
   getAllDiscussList().then(response => {
     res.json({
-      code: 1,
+      code: 200,
       msg: '查询成功',
       data: response
     })

@@ -7,7 +7,7 @@ const { likeAction } = require('../../sql/normal/likesql')
 router.post('/like', function (req, res) {
   likeAction(req.body.id, req.body.openid).then(response => {
     res.json({
-      code: 1,
+      code: 200,
       msg: '查询成功',
       data: response
     })

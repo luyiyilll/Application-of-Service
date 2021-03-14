@@ -20,7 +20,7 @@ router.post('/collect', function (req, res) {
   }
   addCollect(o).then(response => {
     res.json({
-      code: 1,
+      code: 200,
       msg: '收藏成功',
     })
   })
@@ -34,7 +34,7 @@ router.post('/deletecollect', function (req, res) {
   }
   deleteCollect(o).then(response => {
     res.json({
-      code: 1,
+      code: 200,
       msg: '已经取消收藏',
     })
   })
@@ -45,7 +45,7 @@ router.post('/cancel', function (req, res) {
   let id = req.body.id;
   deleteCollectById(id).then(response => {
     res.json({
-      code: 1,
+      code: 200,
       msg: '取消收藏成功',
     })
   })
@@ -55,7 +55,7 @@ router.post('/cancel', function (req, res) {
 router.post('/list', function (req, res) {
   getListByOpenid(req.body.openid).then(response => {
     res.json({
-      code: 1,
+      code: 200,
       msg: '查询成功',
       data: response
     })
@@ -67,7 +67,7 @@ router.post('/iscollect', function (req, res) {
   getIsCollect(req.body.keyword, req.body.openid).then(response => {
     if (response.length != 0) {
       res.json({
-        code: 1,
+        code: 200,
         msg: '已收藏',
         data: response
       })
@@ -85,7 +85,7 @@ router.post('/iscollect', function (req, res) {
 router.post('/searchlist', function (req, res) {
   getSearchWordList(req.body.keyword, req.body.openid).then(response => {
     res.json({
-      code: 1,
+      code: 200,
       msg: '查询成功',
       data: response
     })
@@ -96,7 +96,7 @@ router.post('/searchlist', function (req, res) {
 router.post('/typelist', function (req, res) {
   getListByType(req.body.type, req.body.openid).then(response => {
     res.json({
-      code: 1,
+      code: 200,
       msg: '查询成功',
       data: response
     })

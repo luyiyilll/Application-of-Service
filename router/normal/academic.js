@@ -12,7 +12,7 @@ router.get('/all', function (req, res) {
       academic.push(element.academic)
     });
     res.json({
-      code: 20000,
+      code: 200,
       data: academic,
       msg: '获取学院成功'
     })
@@ -30,7 +30,7 @@ router.post('/major', function (req, res) {
       major.push(element.major)
     })
     res.json({
-      code: 20000,
+      code: 200,
       msg: '获取专业成功',
       data: major
     })
@@ -47,7 +47,7 @@ router.get('/depart', function (req, res) {
       depart.push(element.depart)
     })
     res.json({
-      code: 20000,
+      code: 200,
       msg: '获取部门成功',
       data: depart
     })

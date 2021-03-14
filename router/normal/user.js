@@ -85,7 +85,7 @@ router.post('/openid', async function (req, res, next) {
         }
         res.json({
           info: info,
-          code: 1,
+          code: 200,
           msg: '登录成功'
         })
       }
@@ -103,7 +103,7 @@ router.post('/adduser', function (req, res) {
   let sql = "insert into tb_user(openid,nick_name,avatar,gender,identity,is_apply,is_check,is_pass) values('" + req.body.openid + "','" + req.body.nick_name + "','" + req.body.avatarurl + "','" + req.body.gender + "', 0,0,0,0)"
   querySql(sql).then(response => {
     res.json({
-      code: 1,
+      code: 200,
       msg: '添加成功'
     })
   }).catch(e => {
@@ -125,7 +125,7 @@ router.get('/grade', function (req, res) {
   }
   res.json({
     data: grade,
-    code: 20000,
+    code: 200,
     msg: '查询年级成功'
   })
 })
@@ -137,7 +137,7 @@ router.post('/info', function (req, res) {
   let sql = "update tb_user set realname='" + user.realname + "',gender='" + user.gender + "',birthday='" + user.birthday + "',IDcode='" + user.IDcode + "',tel='" + user.tel + "',grade='" + user.grade + "',academic='" + user.academic + "',major='" + user.major + "',department='" + user.department + "',apply_postdate='" + date + "',is_apply=1 where openid='" + req.body.user.openid + "'";
   querySql(sql).then(response => {
     res.json({
-      code: 1,
+      code: 200,
       msg: '更新用户信息成功'
     })
   })
@@ -159,7 +159,7 @@ router.post('/user/id', function (req, res) {
     user.tonormal_pic = response[0].tonormal_pic ? response[0].tonormal_pic.split(";") : response[0].tonormal_pic;
     res.json({
       user: user,
-      code: 1,
+      code: 200,
       msg: '更新用户信息成功'
     })
   }).catch(e => {
@@ -181,7 +181,7 @@ router.post('/petitionpic', upload.single("file"), function (req, res) {
   fs.writeFileSync(path.join(__dirname, newPath), fileData);//重新书写图片文件  写入到指定的文件夹下
   uploadPetition(req.headers['authori-zation'], newName)
   res.json({
-    code: 1,
+    code: 200,
     msg: '上传成功'
   });
 })
@@ -197,7 +197,7 @@ router.post('/familypic', upload.single("file"), function (req, res) {
   fs.writeFileSync(path.join(__dirname, newPath), fileData);//重新书写图片文件  写入到指定的文件夹下
   uploadFamily(req.headers['authori-zation'], newName)
   res.json({
-    code: 1,
+    code: 200,
     msg: '上传成功'
   });
 })
@@ -213,7 +213,7 @@ router.post('/resumepic', upload.single("file"), function (req, res) {
   fs.writeFileSync(path.join(__dirname, newPath), fileData);//重新书写图片文件  写入到指定的文件夹下
   uploadResume(req.headers['authori-zation'], newName)
   res.json({
-    code: 1,
+    code: 200,
     msg: '上传成功'
   });
 })
@@ -229,7 +229,7 @@ router.post('/statementpic', upload.single("file"), function (req, res) {
   fs.writeFileSync(path.join(__dirname, newPath), fileData);//重新书写图片文件  写入到指定的文件夹下
   uploadStatement(req.headers['authori-zation'], newName)
   res.json({
-    code: 1,
+    code: 200,
     msg: '上传成功'
   });
 })
@@ -245,7 +245,7 @@ router.post('/excellentpic', upload.single("file"), function (req, res) {
   fs.writeFileSync(path.join(__dirname, newPath), fileData);
   uploadExcellent(req.headers['authori-zation'], newName)
   res.json({
-    code: 1,
+    code: 200,
     msg: "上传成功"
   })
 })
@@ -261,7 +261,7 @@ router.post('/certifatepic', upload.single('file'), function (req, res) {
   fs.writeFileSync(path.join(__dirname, newPath), fileData);
   uploadCertifate(req.headers['authori-zation'], newName);
   res.json({
-    code: 1,
+    code: 200,
     msg: "上传成功"
   })
 })
@@ -277,7 +277,7 @@ router.post('/normalpic', upload.single('file'), function (req, res) {
   fs.writeFileSync(path.join(__dirname, newPath), fileData);
   uploadNormal(req.headers['authori-zation'], newName);
   res.json({
-    code: 1,
+    code: 200,
     msg: "上传成功"
   })
 })
@@ -293,7 +293,7 @@ router.post('/applybookpic', upload.single('file'), function (req, res) {
   fs.writeFileSync(path.join(__dirname, newPath), fileData);
   uploadApplybook(req.headers['authori-zation'], newName);
   res.json({
-    code: 1,
+    code: 200,
     msg: "上传成功"
   })
 })
@@ -309,7 +309,7 @@ router.post('/tonormalpic', upload.single('file'), function (req, res) {
   fs.writeFileSync(path.join(__dirname, newPath), fileData);
   uploadTonormal(req.headers['authori-zation'], newName);
   res.json({
-    code: 1,
+    code: 200,
     msg: "上传成功"
   })
 })
@@ -488,7 +488,7 @@ router.post('/application', function (req, res) {
 
     res.json({
       data: result,
-      code: 1,
+      code: 200,
       msg: "查询成功"
     })
   }).catch(e => {

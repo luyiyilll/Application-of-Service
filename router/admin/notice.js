@@ -9,8 +9,26 @@ const jwt = require('jsonwebtoken')
 var fs = require("fs");
 const multiparty = require('multiparty');// 引入导入模块
 
-const { deleteById } = require('../../sql/admin/noticesql')
+const { deleteById, addContent } = require('../../sql/admin/noticesql')
 const { getFromatTime } = require('../../utils/constant')
+
+/*根据类型获取列表*/
+router.post('/list', function (req, res) {
+  let token = req.headers['x-token'];// 从Authorization中获取token
+  jwt.verify(token, secretOrPrivateKey, (err, decode) => {
+    if (err) {  //时间失效的时候 || 伪造的token
+      res.send({ code: 0, msg: 'token已失效' });
+    } else {
+      getListByType(req.body.type).then(response => {
+        res.json({
+          code: 200,
+          msg: '删除成功',
+          data: response
+        })
+      })
+    }
+  })
+})
 
 /*根据id删除通知 会议 公式*/
 router.post('/delete', function (req, res) {
@@ -21,7 +39,7 @@ router.post('/delete', function (req, res) {
     } else {
       deleteById(req.body.id).then(response => {
         res.json({
-          code: 20000,
+          code: 200,
           msg: '删除成功',
           data: response
         })
@@ -37,9 +55,10 @@ router.post('/add', function (req, res) {
     if (err) {  //时间失效的时候 || 伪造的token
       res.send({ code: 0, msg: 'token已失效' });
     } else {
+      console.log(req.body)
       addContent(req.body).then(response => {
         res.json({
-          code: 20000,
+          code: 200,
           msg: '删除成功',
           data: response
         })
@@ -73,7 +92,7 @@ router.post('/announce/upload', function (req, res) {
           // //同步重命名文件名 fs.renameSync(oldPath, newPath)
           // fs.renameSync(inputFile.path, newPath);
           res.json({
-            code: 20000,
+            code: 200,
             msg: '上传成功',
           })
           //读取数据后 删除文件
@@ -83,7 +102,7 @@ router.post('/announce/upload', function (req, res) {
         } catch (err) {
           console.log(err);
           res.json({
-            code: 20000,
+            code: 200,
             msg: '上传失败',
           })
         };

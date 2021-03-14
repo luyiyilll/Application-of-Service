@@ -15,7 +15,7 @@ router.post('/comment', function (req, res) {
   }
   addComment(o).then(response => {
     res.json({
-      code: 1,
+      code: 200,
       msg: '评论成功'
     })
   })

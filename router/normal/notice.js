@@ -20,7 +20,7 @@ router.post('/list', function (req, res) {
       result.push(o)
     })
     res.json({
-      code: 20000,
+      code: 200,
       msg: '查询成功',
       data: result
     })
@@ -31,7 +31,7 @@ router.post('/list', function (req, res) {
 router.post('/id', function (req, res) {
   getContentById(req.body.id).then(response => {
     res.json({
-      code: 20000,
+      code: 200,
       msg: '查询成功',
       data: response[0]
     })

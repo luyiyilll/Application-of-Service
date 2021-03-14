@@ -54,45 +54,13 @@ router.post('/login', function (req, res) {
       res.json({
         token: token,
         user,
-        code: 20000,
+        code: 200,
         msg: '登录成功'
       })
     }
   })
 })
 
-// router.get('/user/list', function (req, res) {
-//   // let token = req.get("Authorization"); // 从Authorization中获取token
-//   // jwt.verify(token, secretOrPrivateKey, (err, decode) => {
-//   //   if (err) {  //时间失效的时候 || 伪造的token
-//   //     res.send({ code: 0, msg: 'token已失效' });
-//   //   } else {
-//   getUserList().then(response => {
-//     let r = []
-//     response.forEach(item => {
-//       let o = {
-//         id: item.id,
-//         grade: item.grade ? item.grade : '暂无',
-//         name: item.realname ? item.realname : '暂无',
-//         identity: getIdentity(item.identity),
-//         academic: item.academic ? item.academic : '暂无',
-//         major: item.major ? item.major : '暂无',
-//         apply: getApply(item.identity, item.is_apply),
-//         status: getApplyStatus(item.identity, item.is_apply, item.is_check)
-//       }
-//       r.push(o)
-//     })
-//     res.json({
-//       code: 20000,
-//       msg: '查询成功',
-//       data: r
-//     })
-//   })
-
-//   //   }
-//   // })
-
-// })
 
 /*获取未审核的用户列表*/
 router.post('/uncheck', function (req, res) {
@@ -119,7 +87,7 @@ router.post('/uncheck', function (req, res) {
         })
         res.json({
           data: r,
-          code: 20000,
+          code: 200,
           msg: '查询成功'
         })
       })
@@ -139,7 +107,7 @@ router.post('/handleuncheck', function (req, res) {
     } else {
       handleUnCheck(req.body).then(response => {
         res.json({
-          code: 20000,
+          code: 200,
           msg: '操作成功'
         })
       })
@@ -169,7 +137,7 @@ router.post('/checked', function (req, res) {
         })
         res.json({
           data: r,
-          code: 20000,
+          code: 200,
           msg: '查询成功'
         })
       })
@@ -186,7 +154,7 @@ router.post('/delete', function (req, res) {
     } else {
       deleteUserById(req.body.id).then(response => {
         res.json({
-          code: 20000,
+          code: 200,
           msg: '操作成功'
         })
       })
@@ -234,7 +202,7 @@ router.post('/userinfo', function (req, res) {
           tonormal_pic: getPicArray(response.tonormal_pic)
         }
         res.json({
-          code: 20000,
+          code: 200,
           msg: '操作成功',
           data: info
         })
@@ -267,7 +235,7 @@ router.post('/apppic', multer(upload).array('file', 10), function (req, res) {
       console.log('pics-----', pics)
       uploadPetition(req.headers['id'], pics)
       res.json({
-        code: 20000,
+        code: 200,
         msg: '操作成功'
       })
     }
@@ -293,7 +261,7 @@ router.post('/familypic', multer(upload).array('file', 10), function (req, res) 
         uploadFamily(req.headers['id'], newName)
       }
       res.json({
-        code: 20000,
+        code: 200,
         msg: '操作成功'
       })
     }
@@ -319,7 +287,7 @@ router.post('/resumepic', multer(upload).array('file', 10), function (req, res) 
         uploadResume(req.headers['id'], newName)
       }
       res.json({
-        code: 20000,
+        code: 200,
         msg: '操作成功'
       })
     }
@@ -346,7 +314,7 @@ router.post('/statementpic', multer(upload).array('file', 10), function (req, re
         uploadStatement(req.headers['id'], newName)
       }
       res.json({
-        code: 20000,
+        code: 200,
         msg: '操作成功'
       })
     }
@@ -372,7 +340,7 @@ router.post('/excellentpic', multer(upload).array('file', 10), function (req, re
         uploadExcellent(req.headers['id'], newName)
       }
       res.json({
-        code: 20000,
+        code: 200,
         msg: '操作成功'
       })
     }
@@ -399,7 +367,7 @@ router.post('/certifatepic', multer(upload).array('file', 10), function (req, re
         uploadCertifate(req.headers['id'], newName)
       }
       res.json({
-        code: 20000,
+        code: 200,
         msg: '操作成功'
       })
     }
@@ -426,7 +394,7 @@ router.post('/normalpic', multer(upload).array('file', 10), function (req, res) 
         uploadNormal(req.headers['id'], newName)
       }
       res.json({
-        code: 20000,
+        code: 200,
         msg: '操作成功'
       })
     }
@@ -452,7 +420,7 @@ router.post('/applybookpic', multer(upload).array('file', 10), function (req, re
         uploadApplybook(req.headers['id'], newName)
       }
       res.json({
-        code: 20000,
+        code: 200,
         msg: '操作成功'
       })
     }
@@ -478,7 +446,7 @@ router.post('/tonormalpic', multer(upload).array('file', 10), function (req, res
         uploadTonormal(req.headers['id'], newName)
       }
       res.json({
-        code: 20000,
+        code: 200,
         msg: '操作成功'
       })
     }
@@ -495,7 +463,7 @@ router.post('/deletepic', function (req, res) {
 
       deletePicByName(req.body)
       res.json({
-        code: 20000,
+        code: 200,
         msg: '删除成功'
       })
 
